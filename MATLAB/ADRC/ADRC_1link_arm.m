@@ -1,4 +1,5 @@
 clear
+close all
 
 %% ADRCの1リンクマニピュレータの適用 積分型最適サーボとの比較
 
@@ -9,7 +10,7 @@ M = 1;%[kg]
 l = 1;%[m]
 g = 9.8;
 c_theta = 0.2;%減衰係数
-I = M*l*l/12; %剛体振り子のイナーシャ
+I = M*l^2/12 + (l/2)^2*M; %剛体振り子のイナーシャ 支点周り
 
 theta_ini = pi/4; dtheta_ini = 0; %初期状態
 
@@ -35,13 +36,14 @@ c1 = 3*exobs_omega^2;
 c0 = exobs_omega^3;
 L_ex = [c2;c1;c0]; 
 
-kp = 20;% 適当なPゲイン
-kd = 2;% 適当なDゲイン 
+kp = 600;% 適当なPゲイン
+kd = 40;% 適当なDゲイン 
 
 
 %% 積分型最適サーボ系設計
 A_tilde=[A zeros(n,1); -C 0]; B_tilde=[B; 0];
-Q_ctrl = diag([1e2, 1e2, 1e7]);
+% Q_ctrl = diag([1e2, 1e2, 1e7]);
+Q_ctrl = diag([1e2, 1e2, 1e8]);
 R_ctrl = 1;
 F_ctrl = lqr(A_tilde, B_tilde, Q_ctrl, R_ctrl);
 Kp = F_ctrl(1);

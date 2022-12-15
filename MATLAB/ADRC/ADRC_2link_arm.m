@@ -21,7 +21,7 @@ M_cth2 = [2*M2*L1*l2 M2*L1*l2; M2*L1*l2 0]; % cos(theta2)がかかる部分
 
 theta1_ini = 0; dtheta1_ini = 0; %初期状態
 theta2_ini = 0; dtheta2_ini = 0; %初期状態
-theta1_ini = -0.5; theta2_ini = 2; % 円を描かせる場合はこっちの初期値
+% theta1_ini = -0.5; theta2_ini = 2; % 円を描かせる場合はこっちの初期値
 
 %% 拡張状態方程式の定義
 A1_ex = [0 1 0; 0 0 1; 0 0 0 ];
@@ -51,8 +51,8 @@ kd2 = 10; % Dゲイン 第2関節
 %% シミュレーション実行
 Tsim = 0.001;%シミュレーション時間間隔
 Tend = 10;
-% out = sim('sim_ADRC_2link_arm');  % ステップ角度指令はこっち
-out = sim('sim_ADRC_2link_arm_circle');  % 円を描かせる場合はこっち
+out = sim('sim_ADRC_2link_arm');  % ステップ角度指令はこっち
+% out = sim('sim_ADRC_2link_arm_circle');  % 円を描かせる場合はこっち
 
 %% 結果の描画
 lw = 1;
@@ -69,4 +69,4 @@ set(graph_x1_1,'Location','NorthEast');
 title('ADRC Angle Tracking')
 ylabel('Angle[rad]')
 xlabel('Time[s]')
-% ylim([-0.2 1.8]);
+ylim([-0.2 2.0]);
